@@ -41,6 +41,8 @@ var (
 	ErrNotEnoughFunds = errors.New("not enough funds to execute transaction")
 
 	ErrInvalidToAddr = errors.New("message had invalid to address")
+
+	ErrBroadcastAnyway = errors.New("broadcasting message despite validation fail")
 )
 
 const (
@@ -311,7 +313,7 @@ func (mp *MessagePool) addTs(m *types.SignedMessage, curTs *types.TipSet) error 
 
 	snonce, err := mp.getStateNonce(m.Message.From, curTs)
 	if err != nil {
-		return xerrors.Errorf("failed to look up actor state nonce: %w", err)
+		return xerrors.Errorf("failed to look up actor state nonce: %w: %w", err, ErrBroadcastAnyway)
 	}
 
 	if snonce > m.Message.Nonce {
@@ -320,7 +322,7 @@ func (mp *MessagePool) addTs(m *types.SignedMessage, curTs *types.TipSet) error 
 
 	balance, err := mp.getStateBalance(m.Message.From, curTs)
 	if err != nil {
-		return xerrors.Errorf("failed to check sender balance: %w", err)
+		return xerrors.Errorf("failed to check sender balance: %w: %w", err, ErrBroadcastAnyway)
 	}
 
 	if balance.LessThan(m.Message.RequiredFunds()) {
