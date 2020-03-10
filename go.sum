@@ -101,6 +101,8 @@ github.com/fatih/color v1.8.0/go.mod h1:3l45GVGkyrnYNl9HoIjnp2NnNWvh6hLAqD8yTfGj
 github.com/fd/go-nat v1.0.0/go.mod h1:BTBu/CKvMmOMUPkKVef1pngt2WFH/lg7E6yQnulfp6E=
 github.com/filecoin-project/chain-validation v0.0.6-0.20200305212458-670d41260fd7 h1:elmXXIpuwO7UNWABiUUMISgwt8O9HkqMLKmJEzuxqR8=
 github.com/filecoin-project/chain-validation v0.0.6-0.20200305212458-670d41260fd7/go.mod h1:g9PtEzAwUNn45uM2xOWS4fUKTOFRQAFKZz2zYdKQivk=
+github.com/filecoin-project/chain-validation v0.0.6-0.20200310062009-976a65ff8844 h1:OWYivNqIvIj2to9aVXhWyab1rrPNb7wa0hF/EoDPDLo=
+github.com/filecoin-project/chain-validation v0.0.6-0.20200310062009-976a65ff8844/go.mod h1:Yy2U4VpoJnFWewReKzoVX4h141PEbSBdBteIzyiKevA=
 github.com/filecoin-project/go-address v0.0.0-20200107215422-da8eea2842b5 h1:/MmWluswvDIbuPvBct4q6HeQgVm62O2DzWYTB38kt4A=
 github.com/filecoin-project/go-address v0.0.0-20200107215422-da8eea2842b5/go.mod h1:SAOwJoakQ8EPjwNIsiakIQKsoKdkcbx8U3IapgCg9R0=
 github.com/filecoin-project/go-address v0.0.2-0.20200218010043-eb9bb40ed5be h1:TooKBwR/g8jG0hZ3lqe9S5sy2vTUcLOZLlz3M5wGn2E=
@@ -135,6 +137,7 @@ github.com/filecoin-project/specs-actors v0.0.0-20200226200336-94c9b92b2775/go.m
 github.com/filecoin-project/specs-actors v0.0.0-20200302223606-0eaf97b10aaf/go.mod h1:0HAWYrvajFHDgRaKbF0rl+IybVLZL5z4gQ8koCMPhoU=
 github.com/filecoin-project/specs-actors v0.0.0-20200305205312-53bb01da9aeb h1:9Ch6f/LYCh/BoriHfSp8sRX0OaO+9gQVK6x0vGl9o0s=
 github.com/filecoin-project/specs-actors v0.0.0-20200305205312-53bb01da9aeb/go.mod h1:0HAWYrvajFHDgRaKbF0rl+IybVLZL5z4gQ8koCMPhoU=
+github.com/filecoin-project/specs-actors v0.0.0-20200305215724-6976022bc247/go.mod h1:0HAWYrvajFHDgRaKbF0rl+IybVLZL5z4gQ8koCMPhoU=
 github.com/filecoin-project/specs-actors v0.0.0-20200309035311-2490172c2e9f h1:dnF2E9U1JI2cb7oABDdgtfIfzvTyMyrbbTr7UUtqRKU=
 github.com/filecoin-project/specs-actors v0.0.0-20200309035311-2490172c2e9f/go.mod h1:5WngRgTN5Eo4+0SjCBqLzEr2l6Mj45DrP2606gBhqI0=
 github.com/filecoin-project/specs-actors v0.0.0-20200309172618-71390e5cd9f2 h1:ft47fZteHYLxFdscNXA+MuxY1cNiZ1sGFme3oqRjE1k=
