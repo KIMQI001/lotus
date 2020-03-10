@@ -115,7 +115,7 @@ func (bs *gasChargingBlocks) Put(blk block.Block) error {
 	return nil
 }
 
-func (vm *VM) makeRuntime(ctx context.Context, msg *types.Message, origin address.Address, usedGas types.BigInt) *Runtime {
+func (vm *VM) makeRuntime(ctx context.Context, msg *types.Message, origin address.Address, usedGas types.BigInt, cd int64) *Runtime {
 	rt := &Runtime{
 		ctx:    ctx,
 		vm:     vm,
@@ -127,6 +127,7 @@ func (vm *VM) makeRuntime(ctx context.Context, msg *types.Message, origin addres
 
 		gasUsed:      usedGas,
 		gasAvailable: msg.GasLimit,
+		callDepth: cd,
 	}
 	rt.cst = &cbor.BasicIpldStore{
 		Blocks: &gasChargingBlocks{rt.ChargeGas, vm.cst.Blocks},
@@ -206,11 +207,13 @@ func (vm *VM) send(ctx context.Context, msg *types.Message, parent *Runtime,
 
 	gasUsed := types.NewInt(gasCharge)
 	origin := msg.From
+	var cd int64 = 0
 	if parent != nil {
 		gasUsed = types.BigAdd(parent.gasUsed, gasUsed)
 		origin = parent.origin
+		cd = parent.callDepth + 1
 	}
-	rt := vm.makeRuntime(ctx, msg, origin, gasUsed)
+	rt := vm.makeRuntime(ctx, msg, origin, gasUsed, cd)
 	if parent != nil {
 		defer func() {
 			parent.gasUsed = rt.gasUsed

@@ -43,6 +43,8 @@ type Runtime struct {
 	origin address.Address
 
 	internalExecutions []*ExecutionResult
+	// tracks internal call depth, starts at 0
+	callDepth int64
 }
 
 func (rs *Runtime) ResolveAddress(address address.Address) (ret address.Address, ok bool) {
@@ -152,13 +154,19 @@ func (rt *Runtime) GetRandomness(personalization crypto.DomainSeparationTag, ran
 	return res
 }
 
+func (rs *Runtime) InternalCallSeqNum() int64 {
+	return int64(len(rs.internalExecutions)) + rs.callDepth
+}
+
 func (rs *Runtime) Store() vmr.Store {
 	return rs
 }
 
 func (rt *Runtime) NewActorAddress() address.Address {
 	var b bytes.Buffer
-	if err := rt.Message().Caller().MarshalCBOR(&b); err != nil { // todo: spec says cbor; why not just bytes?
+	sid, _ := rt.ResolveAddress(rt.origin)
+
+	if err := sid.MarshalCBOR(&b); err != nil { // todo: spec says cbor; why not just bytes?
 		rt.Abortf(exitcode.ErrSerialization, "writing caller address into a buffer: %v", err)
 	}
 
@@ -170,7 +178,7 @@ func (rt *Runtime) NewActorAddress() address.Address {
 	if err := binary.Write(&b, binary.BigEndian, act.Nonce); err != nil {
 		rt.Abortf(exitcode.ErrSerialization, "writing nonce address into a buffer: %v", err)
 	}
-	if err := binary.Write(&b, binary.BigEndian, uint64(0)); err != nil { // TODO: expose on vm
+	if err := binary.Write(&b, binary.BigEndian, rt.InternalCallSeqNum()); err != nil { // TODO: expose on vm
 		rt.Abortf(exitcode.ErrSerialization, "writing callSeqNum address into a buffer: %v", err)
 	}
 	addr, err := address.NewActorAddress(b.Bytes())
